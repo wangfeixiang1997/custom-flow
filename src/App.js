@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Drawer, message } from 'antd';
+import { Button, Drawer, message } from 'antd';
 import LogicFlow from "@logicflow/core";
 import SchemaBuilder from '@xrenders/schema-builder';
 import "@logicflow/core/dist/style/index.css";
@@ -7,7 +7,8 @@ import {
   DndPanel,
   SelectionSelect,
   Control,
-  MiniMap
+  MiniMap,
+  Menu,
 } from '@logicflow/extension';
 import '@logicflow/extension/lib/style/index.css'
 import './App.css';
@@ -16,6 +17,9 @@ LogicFlow.use(DndPanel);
 LogicFlow.use(SelectionSelect);
 LogicFlow.use(Control);
 LogicFlow.use(MiniMap);
+LogicFlow.use(Menu);
+
+let logicflow;
 
 const App = () => {
   const refContainer = useRef();
@@ -24,15 +28,22 @@ const App = () => {
   const [nodeId, setNodeId] = useState('');
 
   useEffect(() => {
-    const logicflow = new LogicFlow({
+    logicflow = new LogicFlow({
       container: refContainer.current,
       grid: true,
       height: 1000,
     });
 
-    logicflow.on("node:click", (data) => {
-      setOpen(true)
-      setNodeId(data?.data?.id)
+    logicflow.extension.menu.addMenuConfig({
+      nodeMenu: [
+        {
+          text: "自定义",
+          callback(node) {
+            setOpen(true)
+            setNodeId(node?.id)
+          },
+        },
+      ],
     });
 
     logicflow.extension.control.addItem({
@@ -106,9 +117,16 @@ const App = () => {
     setOpen(false)
   }
 
+  const handleClickExport = () => {
+    console.log(logicflow.getGraphData(), schemaData);
+  }
+
   return (
     <>
       <div className="App" ref={refContainer}>
+      </div>
+      <div style={{ position: 'fixed', bottom: '10px', left: '10px' }}>
+        <Button onClick={() => { handleClickExport() }}>导出</Button>
       </div>
       <Drawer
         width={1000}
