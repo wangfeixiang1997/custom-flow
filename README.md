@@ -1,11 +1,11 @@
-##自定义流程图+表单
+## 自定义流程图+表单
 [DEMO](https://wangfeixiang1997.github.io/custom-flow/)
-###安装
+### 安装
 ```
 npm install
 npm start
 ```
-####文档
+#### 文档
 1. 自定义流程图：[LogicFlow](https://github.com/didi/LogicFlow)
    1. 代码示例
    ```ruby
@@ -143,7 +143,7 @@ npm start
 
     ```
 
-####导出数据
+#### 导出数据
 ```ruby
 // 流程图数据
 logicflow.getGraphData()
