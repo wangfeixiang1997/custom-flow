@@ -1,5 +1,5 @@
 ## 自定义流程图+表单
-[DEMO](https://wangfeixiang1997.github.io/custom-flow/)
+[在线预览](https://wangfeixiang1997.github.io/custom-flow/)
 ### 安装
 ```
 npm install
